@@ -1,0 +1,168 @@
+﻿@model TripRoutingApp.Models.Search.ResultsPresentationModel
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .split {
+                height: 100%;
+                width: 50%;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                overflow-x: hidden;
+                padding-top: 20px;
+            }
+
+            /* Control the left side */
+            .left {
+                left: 0;
+                background-color: black;
+            }
+
+            /* Control the right side */
+            .right {
+                right: 0;
+                background-color: white;
+            }
+
+            table#UberTable {
+                border: 1px solid white;
+                color: white;
+                width: 500px;
+
+            }
+            table#LyftTable {
+                border: 1px solid black;
+                color: black;
+                width: 500px;
+            }
+            .tableContainer {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+            
+            .logo {
+                position: absolute;
+                top: 15%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+
+            }
+            
+              .img {
+                width: auto;
+                height: 100px;
+            }
+
+            .table1 {
+                font-family: Tahoma, Verdana, Segoe, sans-serif;
+                border-collapse: collapse;
+            }
+
+            .table1 td, th {
+                border: 1px solid #dddddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table1 tr:nth-child(odd) {
+                color: #FFFFFF;
+            }
+
+            .table1 tr:nth-child(even) {
+                color: black;
+                background-color: #dddddd;
+            }
+            
+            .table2 {
+                font-family: Tahoma, Verdana, Segoe, sans-serif;
+                border-collapse: collapse;
+            }
+
+            .table2 td, th {
+                border: 3px solid #dddddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table2 tr:nth-child(odd) {
+                color: #FFFFFF;
+                background-color: #000000
+            }
+
+            .table2 tr:nth-child(even) {
+                background-color: #FB0086;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="split left">
+            <div class="logo">
+                <img class="img" src="~/images/uberlogo.png" alt="Uber Logo" >
+            </div>
+            <div class="tableContainer">
+                <table id="UberTable" align="center" class="table1">
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Estimated Price</th>
+                        <th>Estimated Time of Arrival</th>
+                    </tr>
+                    @foreach (var service in Model.UberServices)
+                    {
+                        <tr>
+                            <td>@service.Name</td>
+                            <td>@service.PriceEstimate</td>
+                            @if (service.ArrivalTimeEstimate != null)
+                            {
+                                <td>@service.ArrivalTimeEstimate minutes</td>
+                            }
+                            else
+                            {
+                                <td> Not Available </td>
+                            }
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+     
+        <div class="split right">
+            <div class="logo">
+                <img class="img" src="~/images/lyft-logo.png" alt="Lyft logo">
+            </div>
+            <div class="tableContainer">
+                <table id="LyftTable" align="center" class="table2">
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Estimated Price</th>
+                        <th>Estimated Time of Arrival</th>
+                    </tr>
+
+                    @foreach (var service in Model.LyftServices)
+                    {
+                        <tr>
+                            <td>@service.Name</td>
+                            <td>@service.PriceEstimate</td>
+                            @if (service.ArrivalTimeEstimate != null)
+                    {
+                        <td>@service.ArrivalTimeEstimate minutes</td>
+                    }
+                    else
+                    {
+                        <td> Not Available </td>
+                    }
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </body>
+</html> 
+
+
